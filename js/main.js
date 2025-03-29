@@ -2092,7 +2092,7 @@ $(document).on("click", 'a[href^="#"]', function (event) {
 
                 function generateResultsPage() {
                         // Calculate score
-                        const score = getScore();
+                        const score = getScore().text();
                         const totalQuestions = questions.length;
                 
                         // Start building HTML content
@@ -2277,7 +2277,7 @@ $(document).on("click", 'a[href^="#"]', function (event) {
                                   <!-- Page 1: Score Display -->
                                   <div class="score">
                                     <h1>Test Results</h1>
-                                    You scored ${score} out of ${totalQuestions}
+                                    ${score}
                                   </div>
                           `;
                 
