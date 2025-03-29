@@ -2067,24 +2067,295 @@ $(document).on("click", 'a[href^="#"]', function (event) {
 
         // Computes score and returns a paragraph element to be displayed
         function displayScore() {
-                var score = $("<p>", {
-                        id: "question",
-                });
+                // Get score
+                function getScore() {
+                        var score = $("<p>", {
+                                id: "question",
+                        });
 
-                var numCorrect = 0;
-                for (var i = 0; i < selections.length; i++) {
-                        if (selections[i] === questions[i].correctAnswer) {
-                                numCorrect++;
+                        var numCorrect = 0;
+                        for (var i = 0; i < selections.length; i++) {
+                                if (selections[i] === questions[i].correctAnswer) {
+                                        numCorrect++;
+                                }
                         }
-                }
 
-                score.append(
-                        "You got " +
-                        numCorrect +
-                        " questions out of " +
-                        questions.length +
-                        " right."
-                );
-                return score;
+                        score.append(
+                                "You got " +
+                                numCorrect +
+                                " questions out of " +
+                                questions.length +
+                                " right."
+                        );
+                        return score;
+                }
+                
+                function generateResultsPage() {
+                        // Calculate score
+                        const score = getScore();
+                        const totalQuestions = questions.length;
+                
+                        // Start building HTML content
+                        let html = `
+                              <!DOCTYPE html>
+                              <html>
+                              <head>
+                                  <title>Quiz Results</title>
+                                  <style>
+                                    
+                                      body {
+                                            font-family: Arial, sans-serif;
+                                            margin: 0 auto;
+                                            padding: 20px;
+                                            max-width: 800px; /* Ensures a neat layout on standard screens */
+                                            background-color: #f4f7fa;
+                                        }
+                                        
+                                        /* Basic styling for the results page */
+                                        .results-page {
+                                           font-family: Arial, sans-serif;
+                                           margin: 20px;
+                                        }
+                                              
+                                        .score {
+                                           font-size: 20px;
+                                           margin-bottom: 40px; /* space before the next page */
+                                        }
+                                        .score h1 {
+                                            font-family: 'Impact', sans-serif; 
+                                            font-size: 36px;  /* Adjust the size as needed */
+                                            font-weight: bold; /* Optional: Makes the text bold */
+                                            color: #333; /* Optional: Set a color for the text */
+                                            text-align: center; /* Centers the text */
+                                        }
+                
+                
+                                        .question {
+                                            margin-bottom: 30px;
+                                            padding: 15px;
+                                            background-color: #fff;
+                                            border: 1px solid #ddd;
+                                            border-radius: 10px;
+                                            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+                                            display: block;
+                                            page-break-inside: avoid; /* Prevent page breaks inside the question */
+                                        }
+                
+                                        .question h3 {
+                                            font-size: 20px;
+                                            color: #333;
+                                        }
+                
+                                        .question p {
+                                            font-size: 16px;
+                                            color: #555;
+                                            line-height: 1.5;
+                                        }
+                
+                                        /* General image styling for questions during the test and results page */
+                                        .question-image {
+                                          width: 100%; /* Adjust to the width of the container */
+                                          max-width: 300px; /* Set a max width to prevent overly large images */
+                                          height: auto; /* Maintain aspect ratio */
+                                          object-fit: cover; /* Ensure the image fills the area without distortion */
+                                          margin: 10px 0; /* Optional: Adds spacing around the image */
+                                        }
+                
+                                        .choice {
+                                            padding: 10px;
+                                            margin: 5px 0;
+                                            border-radius: 5px;
+                                            background-color: #f8f9fa;
+                                            border: 1px solid #ddd;
+                                            display: flex;
+                                            align-items: center;
+                                            font-size: 16px;
+                                            color: #333;
+                                        }
+                
+                                        .choice input {
+                                            margin-right: 10px;
+                                            transform: scale(1.2);
+                                        }
+                
+                                        .correct {
+                                            background-color: #d4edda;
+                                            border: 2px solid #28a745;
+                                        }
+                
+                                        .incorrect {
+                                            background-color: #f8d7da;
+                                            border: 2px solid #dc3545;
+                                        }
+                
+                                        .explanation {
+                                            background-color: #f8f9fa;
+                                            border: 1px solid #e2e6ea;
+                                            padding: 10px;
+                                            margin-top: 10px;
+                                            font-size: 14px;
+                                            color: #444;
+                                            border-radius: 5px;
+                                            page-break-inside: avoid; /* Prevent page break inside the explanation */
+                                        }
+                
+                                        .explanation strong {
+                                            font-weight: bold;
+                                        }
+                                        /* CSS to scale images to a fixed size */
+                                        .quiz-image {
+                                          width: 200px; /* You can adjust the width as needed */
+                                          height: auto; /* Automatically adjust the height to maintain the aspect ratio */
+                                          object-fit: cover; /* Ensure images fit within the box without distortion */
+                                          margin: 10px 0; /* Optional: Add some space around the image */
+                                        }
+                                        /* For print */
+                                        @media print {
+                                            body {
+                                                max-width: none; /* Make content stretch across the full page */
+                                                padding: 10px;
+                                            }
+                
+                                            .quiz-image {
+                                                width: 100px; /* Set the width smaller for print */
+                                                height: auto;
+                                                object-fit: cover;
+                                            }
+                
+                                            .question-image {
+                                                width: 100%; /* Resize for print */
+                                                max-width: 200px; /* Smaller size for print */
+                                                height: auto; /* Ensure aspect ratio is maintained */
+                                                object-fit: cover;
+                                                page-break-inside: avoid; /* Prevent page breaks inside the image */
+                                              }
+                
+                                            /* Optional: You can also control the layout of other elements for print */
+                                            .question {
+                                                page-break-after: always; /* Ensure each question starts on a new page */
+                                              }
+                                      
+                                            .choices {
+                                                padding-left: 20px;
+                                            }
+                
+                                            .choice {
+                                                font-size: 14px; /* Smaller font size for printing */
+                                                margin: 5px 0;
+                                            }
+                
+                                            .explanation {
+                                                font-size: 12px; /* Smaller explanation text for print */
+                                                margin-top: 15px;
+                                            }
+                
+                                            /* Optional: Remove background colors and shadows for printing */
+                                            .question, .choice, .explanation {
+                                                background-color: white;
+                                                box-shadow: none;
+                                            }
+                
+                                             .score {
+                                                page-break-after: always; /* forces a page break after the score page */
+                                                font-weight: bold;
+                                                color: green;
+                                                font-size: 24px;
+                                              }
+                
+                                              .score h1 {
+                                                font-family: 'Impact', sans-serif; 
+                                                font-size: 36px;  /* Adjust the size as needed */
+                                                font-weight: bold; /* Optional: Makes the text bold */
+                                                color: #333; /* Optional: Set a color for the text */
+                                                text-align: center; /* Centers the text */
+                                            }
+                                        }
+                                  </style>
+                              </head>
+                              <body>
+                                <div class="results-page">
+                                  <!-- Page 1: Score Display -->
+                                  <div class="score">
+                                    <h1>Test Results</h1>
+                                    You scored ${score} out of ${totalQuestions}
+                                  </div>
+                          `;
+                
+                        // Generate results for each question
+                        questions.forEach((question, index) => {
+                          const userAnswer = selections[index];
+                          const isCorrect = userAnswer === question.correctAnswer;
+                
+                          // Start question div
+                          html += `
+                                  <div class="question">
+                                      <h3>Question ${index + 1}: ${
+                            question.qType || "Question"
+                          }</h3>
+                                      <p>${question.question}</p>
+                              `;
+                
+                          // Add image if exists
+                          if (question.image) {
+                            html += `<img src="${question.image}" alt="Question Image" class="question-image">`;
+                          }
+                
+                          // Add audio if exists
+                          if (question.audio) {
+                            html += `
+                                      <audio controls>
+                                          <source src="https://ricky-11254.github.io/launch_english_files/audio/${question.audio}" type="audio/mpeg">
+                                          Your browser does not support the audio element.
+                                      </audio>
+                                  `;
+                          }
+                
+                          // Generate choices
+                          html += `<div class="choices">`;
+                          question.choices.forEach((choice, choiceIndex) => {
+                            let choiceClass = "";
+                            if (choiceIndex === question.correctAnswer) {
+                              choiceClass = "correct"; // Always highlight correct answer in green
+                            }
+                            if (choiceIndex === userAnswer) {
+                              choiceClass += isCorrect ? " correct" : " incorrect";
+                            }
+                
+                            html += `
+                                      <div class="choice ${choiceClass}">
+                                          ${choice}
+                                      </div>
+                                  `;
+                          });
+                          html += `</div>`;
+                
+                          // Add explanation if the answer was incorrect
+                          if (question.explanation) {
+                            html += `
+                                      <div class="explanation">
+                                          <strong>Explanation:</strong> ${question.explanation}
+                                      </div>
+                                  `;
+                          }
+                
+                          html += `</div>`; // Close question div
+                        });
+                
+                        // Close HTML
+                        html += `
+                              <div style="text-align: center; margin-top: 20px;">
+                                  <button onclick="window.print()">Print Results</button>
+                              </div>
+                              </body>
+                              </html>
+                          `;
+                
+                        // Open results in a new window
+                        const resultsWindow = window.open("", "_blank");
+                        resultsWindow.document.write(html);
+                        resultsWindow.document.close();
+                      }
+                      // Call results generation
+                generateResultsPage();
         }
 })();
