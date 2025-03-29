@@ -2089,7 +2089,7 @@ $(document).on("click", 'a[href^="#"]', function (event) {
                         );
                         return score;
                 }
-                
+
                 function generateResultsPage() {
                         // Calculate score
                         const score = getScore();
@@ -2357,5 +2357,16 @@ $(document).on("click", 'a[href^="#"]', function (event) {
                       }
                       // Call results generation
                 generateResultsPage();
+
+                // Create and return score element
+                const scoreElem = $("<p>", { id: "question" });
+                scoreElem.append(
+                "You got " +
+                getScore() +
+                " questions out of " +
+                questions.length +
+                " right."
+                );
+                return scoreElem;
         }
 })();
