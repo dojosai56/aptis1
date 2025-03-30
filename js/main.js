@@ -2362,7 +2362,7 @@ $(document).on("click", 'a[href^="#"]', function (event) {
                 const scoreElem = $("<p>", { id: "question" });
                 scoreElem.append(
                 "You got " +
-                getScore() +
+                getScore().text() +
                 " questions out of " +
                 questions.length +
                 " right."
