@@ -57,7 +57,7 @@ $(document).on("click", 'a[href^="#"]', function (event) {
                         correctAnswer: 0,
                         image: "img/aptis1_q2-25.png",
                         explanation: "The correct sentence is as follows: 'You can't have ran one as you're not even winded'.  Hence, the correct answer is 'A) can't'.  The reason is that it makes grammatical and logical sense."
-                }/* ,
+                } ,
                 {
 
                         //3
@@ -1891,7 +1891,7 @@ $(document).on("click", 'a[href^="#"]', function (event) {
                         explanation: "The recording is as follows: 'Hello.  This is Kevin.  I am almost done with the project, yet I haven't finished it mostly because I was struggling with the new software tool that we are using for the deliverable.  I appreciate your patience and diligence in helping me with the prep work for the project and I promise that I'll be done with the project by next Friday at the close of business'.  Kevin mentions that he has been struggling with the new software tool, which has caused delays in finishing the project.  Hence, the correct answer is: 'C) He has been having challenges with the learning curve of the new software tool required to complete the project'."
 
 
-                },*/
+                },
         ];
         var questionCounter = 0; //Tracks question number
         var selections = []; //Array containing user choices
