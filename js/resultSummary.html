@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Result Summary</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: calibri;
+        }
+
+        button {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="result-info-container"></div>
+    <button type="submit" id="full-result">View full Results</button>
+    <button type="submit" id="wrong-answers-result">View Wrong Answers</button>
+</body>
+
+<!-- JavaScript Code -->
+<script>
+    const resultInfoContainer = $("#result-info-container");
+
+    // getting the questions
+    const questions = JSON.parse(localStorage.getItem("questions"));
+    // getting the total score
+    const totalScore = localStorage.getItem("totalScore");
+    const resultText = $("<h2>").text(`Congratulations, you've completed the test. You got ${totalScore} 
+                                     question(s) right out of ${questions.length} total questions`)
+        .css({
+            "color": "green"
+        });
+    resultInfoContainer.append(resultText);
+
+    // for viewing full result
+    $("#full-result").on("click", (e) => {
+        e.preventDefault();
+
+        // redirect to result page
+        window.location.href = "result.html";
+        // local storage for the buttons
+        localStorage.setItem("showFullResult", "true");
+    });
+
+    // for viewing wrong answers result
+    $("#wrong-answers-result").on("click", (e) => {
+        e.preventDefault();
+        // redirect to result page
+        window.location.href = "result.html";
+        // local storage for the buttons
+        localStorage.setItem("showFullResult", "false");
+    })
+
+</script>
+
+</html>

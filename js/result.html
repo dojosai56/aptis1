@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- For the pdf converter -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+        integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<style>
+    body {
+        font-family: calibri;
+    }
+
+    #logo {
+        width: 250px;
+    }
+
+    button {
+        cursor: pointer;
+    }
+
+</style>
+
+<body>
+    <header>
+        <img src="img/logo.jpg" alt="Launch English Logo" id="logo">
+    </header>
+    <h1>TEST RESULTS</h1>
+    <div id="questions-container"></div>
+
+    <button id="download-pdf">Download Results</button>
+
+</body>
+<script src="result.js"></script>
+
+</html>
